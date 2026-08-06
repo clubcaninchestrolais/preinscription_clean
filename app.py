@@ -16,13 +16,14 @@ with st.form("pre_form"):
     submitted = st.form_submit_button("Envoyer")
 
 if submitted:
-    supabase.table("preinscription").insert({
+    data = {
         "nom": nom,
         "prenom": prenom,
         "email": email,
         "telephone": telephone,
         "date_preinscription": datetime.now().isoformat(),
         "statut": "en_attente"
-    }).execute()
+    }
 
+    response = supabase.table("preinscriptions").insert(data).execute()
     st.success("Préinscription envoyée.")
